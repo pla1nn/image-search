@@ -5,6 +5,6 @@ export const getGifs = searchText => {
   return fetch(
     `${BASE_URL}/search?q=${encodeURIComponent(
       searchText
-    )}&api_key=${API_KEY}&limit=12`
+    )}&api_key=${API_KEY}&limit=30`
   );
 };

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { getGifs } from "services/getGifApi";
+import { Gif, Item, List } from "./GifList.styled";
 
 class GifList extends Component {
     state = {
@@ -27,15 +28,15 @@ class GifList extends Component {
 
     render() { 
         return (
-            <ul>
+            <List>
                 {this.state.gifs && this.state.gifs.map(gif => {
                     return (
-                        <li key={gif.id}>
-                            <img src={gif.images.fixed_height.url} alt={gif.title} />
-                        </li>
+                        <Item key={gif.id}>
+                            <Gif src={gif.images.fixed_height.url} alt={gif.title} />
+                        </Item>
                     )
                 })}
-            </ul>
+            </List>
         );
     }
 }
