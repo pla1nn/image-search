@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { SearchBar, SearchButton, SearchForm, SearchInput, SearchLabel } from './GifSearch.styled';
+import { SearchBar, SearchButton, SearchForm, SearchInput, SearchLabel } from './Searchbar.styled';
 
 class GifSearch extends Component {
   state = {

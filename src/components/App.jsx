@@ -1,6 +1,6 @@
 import { Component } from "react";
-import GifList from "./GifList/GifList";
-import GifSearch from "./GifSearch/GifSearch";
+import GifList from "./ImageGallery/ImageGallery";
+import GifSearch from "./Searchbar/Searchbar";
 
 export class App extends Component {
   state = {

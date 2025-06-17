@@ -1,10 +1,10 @@
-const API_KEY = '5H7buSTTqMJ1GzpFesAlq2rDmhfUUNkQ';
-const BASE_URL = 'https://api.giphy.com/v1/gifs';
+const API_KEY = '47606801-75c62912983a7ab29411db2a8';
+const BASE_URL = 'https://pixabay.com/api';
 
-export const getGifs = searchText => {
+export const fetchImages = (searchText, page) => {
   return fetch(
-    `${BASE_URL}/search?q=${encodeURIComponent(
+    `${BASE_URL}/?q=${encodeURIComponent(
       searchText
-    )}&api_key=${API_KEY}&limit=30`
+    )}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
   );
 };
