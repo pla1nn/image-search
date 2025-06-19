@@ -1,24 +1,26 @@
-import { Component } from 'react';
-import { SearchBar, SearchButton, SearchForm, SearchInput, SearchLabel } from './Searchbar.styled';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { SearchContainer, SearchButton, SearchForm, SearchInput, SearchLabel } from './Searchbar.styled';
 
-class GifSearch extends Component {
-  state = {
-    value: ''
-  };
+export const SearchBar = ({onSubmit}) => {
+  const [value, setValue] = useState('')
 
-  handleChange = (e) => {
-    this.setState({value: e.target.value})
+  const handleChange = (e) => {
+    setValue(e.target.value.toLowerCase())
   }
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.handleSearch(this.state.value)
+    if (value.trim() === '') {
+      toast.error('enter something')
+      return
+    }
+    onSubmit(value)
   }
 
-  render() {
     return (
-      <SearchBar>
-        <SearchForm onSubmit={this.handleSubmit}>
+      <SearchContainer>
+        <SearchForm onSubmit={handleSubmit}>
           <SearchButton type="submit">
             <SearchLabel>Search</SearchLabel>
           </SearchButton>
@@ -28,13 +30,10 @@ class GifSearch extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            onChange={this.handleChange}
-            value={this.state.value}
+            onChange={handleChange}
+            value={value}
           />
         </SearchForm>
-      </SearchBar>
+      </SearchContainer>
     );
   }
-}
-
-export default GifSearch;

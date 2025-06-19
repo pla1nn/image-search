@@ -1,22 +1,22 @@
-import { Component } from "react";
-import GifList from "./ImageGallery/ImageGallery";
-import GifSearch from "./Searchbar/Searchbar";
+import { useState } from "react";
+import { ImageGallery } from "./ImageGallery/ImageGallery";
+import { SearchBar} from "./Searchbar/Searchbar";
+// import { SearchBar } from "./Searchbar/Searchbar.styled";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-export class App extends Component {
-  state = {
-    searchText: '',
-  }
+export const App = () => {
+  const [searchImage, setSearchImage] = useState('')
 
-  handleSearch = (searchText) => {
-    this.setState({searchText})
-  }
+  
 
-  render() {
     return (
       <>
-        <GifSearch handleSearch={this.handleSearch}/>
-        <GifList searchText={this.state.searchText}/>
+        <SearchBar onSubmit={setSearchImage}/>
+        <ImageGallery searchImage={searchImage}/>
+        <ToastContainer autoClose={3000}/>
       </>
     )
-  }
+  
 };

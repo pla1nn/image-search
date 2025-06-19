@@ -1,44 +1,52 @@
-import { Component } from "react";
-import { fetchImages } from "services/getGifApi";
-import { Gif, Item, List } from "./ImageGallery.styled";
+import { useState, useEffect } from "react";
+import { fetchImages } from "services/pixabayApi";
+import { List } from "./ImageGallery.styled";
 import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem";
 
-class GifList extends Component {
-    state = {
-        images: null,
-        error: '',
-        isLoading: false,
-        page: 1
-    } 
+export const ImageGallery = ({searchImage}) => {
+      const [images, setImages] = useState([]);
+      const [error, setError] = useState('');
+      const [status, setStatus] = useState(false);
+      const [page, setPage] = useState(1);
+      const [totalPages, setTotalPages] = useState(1);
+      const [showModal, setShowModal] = useState(false);
+      const [largeImage, setLargeImage] = useState('');
+      
+      useEffect(() => setPage(1), [searchImage]);
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.searchText !== this.props.searchText || prevState.page !== this.state.page) {
-          this.setState({ isLoading: true });
-          fetchImages(this.props.searchText, this.state.page)
-            .then(response => response.json())
-            .then(data => {
-              this.setState({ images: data.data });
-            })
-            .catch(error => {
-              this.setState({ error });
-            })
-            .finally(() => {
-              this.setState({ isLoading: false });
-            });
+      useEffect(() => {
+        if (!searchImage) {
+          return
         }
-      }
+        fetchImages(searchImage, page)
+      }, []);
 
-    render() { 
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevProps.searchText !== this.props.searchText || prevState.page !== this.state.page) {
+    //       this.setState({ isLoading: true });
+    //       fetchImages(this.props.searchText, this.state.page)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //           this.setState({ images: data.data });
+    //         })
+    //         .catch(error => {
+    //           this.setState({ error });
+    //         })
+    //         .finally(() => {
+    //           this.setState({ isLoading: false });
+    //         });
+    //     }
+    //   }
+
         return (
             <List>
-                {this.state.images && this.state.images.map(img => {
+                {images && images.map(img => {
                     return (
                         <ImageGalleryItem key={img.id} webFormatURL={img.webFormatURL}/>
                     )
                 })}
             </List>
         );
-    }
+    
 }
  
-export default GifList;
